@@ -1,0 +1,11 @@
+name: Coreboot build and release.
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git submodule update --init
+      - run: find .
