@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: git submodule update --init
+      - uses: actions/checkout@v6
+        with:
+          repository: coreboot/coreboot
+          ref: main
       - run: find .
+      - run: git submodule update --init
