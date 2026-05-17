@@ -26,13 +26,13 @@ jobs:
       #     path: master-this
       - run: find . -maxdepth 1
       - run: |
-        sudo apt update -y && 
-        sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib iasl nasm
+          sudo apt update -y && 
+          sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib iasl nasm
       - run: | 
-        python3 BuildLoader.py clean
-        mkdir sblkeys
-        python3 BootloaderCorePkg/Tools/GenerateKeys.py -k sblkeys 
-        python3 BuildLoader.py build qemu
+          python3 BuildLoader.py clean &&
+          mkdir sblkeys && 
+          python3 BootloaderCorePkg/Tools/GenerateKeys.py -k sblkeys &&
+          python3 BuildLoader.py build qemu
       - name: upload build binary 
         uses: actions/upload-artifact@v4
         with:
