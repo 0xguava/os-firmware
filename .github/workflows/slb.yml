@@ -25,7 +25,7 @@ jobs:
       - run: find . -maxdepth 1
       - run: |
           sudo apt update -y && 
-          sudo apt install -y build-essential python3 python-is-python3 \
+          sudo apt install -y build-essential python3 python-is-python3 iasl\
             uuid-dev nasm openssl gcc-multilib git m4 bison flex 
       - run: |
           git config --global user.name "Name" &&
