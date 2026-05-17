@@ -1,0 +1,38 @@
+name: Coreboot build and release.
+
+on:
+  push:
+    paths:
+      - 'slb/**'
+    tags:
+      - 'rev*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: SBL_KEY_DIR=$HOME/sblkeys
+    steps:
+      - name: Checkout slimbootloader repo
+        uses: actions/checkout@v6
+        with:
+          repository: slimbootloader/slimbootloader
+          ref: master
+      # - name: Checkout
+      #   uses: actions/checkout@v6
+      #   with:
+      #     path: master-this
+      - run: find . -maxdepth 1
+      - run: |
+        sudo apt update -y && 
+        sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib iasl nasm
+      - run: | 
+        python3 BuildLoader.py clean
+        mkdir sblkeys
+        python3 BootloaderCorePkg/Tools/GenerateKeys.py -k sblkeys 
+        python3 BuildLoader.py build qemu
+      - name: upload build binary 
+        uses: actions/upload-artifact@v4
+        with:
+          name: slimbootloader.bin
+          path: Outputs/qemu/SlimBootloader.bin
+

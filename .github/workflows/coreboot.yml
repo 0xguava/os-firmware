@@ -1,6 +1,11 @@
 name: Coreboot build and release.
 
-on: push
+on:
+  push:
+    paths:
+      - 'coreboot.sh'
+    tags:
+      - 'rev*'
 
 jobs:
   build:
