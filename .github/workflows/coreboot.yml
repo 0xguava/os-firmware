@@ -3,17 +3,26 @@ name: Coreboot build and release.
 on:
   push:
     paths:
-      - 'coreboot.sh'
+      - 'coreboot/**'
     tags:
       - 'rev*'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: 
+      image: coreboot/coreboot-sdk:latest
+      options: --privileged
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout coreboot repo
+        uses: actions/checkout@v6
         with:
           repository: coreboot/coreboot
           ref: main
-      - run: find .
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          path: master-this
+      - run: find . -maxdepth 1
       - run: git submodule update --init

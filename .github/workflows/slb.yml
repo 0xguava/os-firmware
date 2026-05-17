@@ -6,11 +6,14 @@ on:
       - 'slb/**'
     tags:
       - 'rev*'
+  workflow_dispatch:
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: SBL_KEY_DIR=$HOME/sblkeys
+    env: 
+      SBL_KEY_DIR: ${{ github.workspace }}/sblkeys
     steps:
       - name: Checkout slimbootloader repo
         uses: actions/checkout@v6
