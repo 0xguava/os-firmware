@@ -1,4 +1,4 @@
-name: Coreboot build and release.
+name: SlimBootloader build and release.
 
 on:
   push:
@@ -25,10 +25,11 @@ jobs:
       - run: find . -maxdepth 1
       - run: |
           sudo apt update -y && 
-          sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib iasl nasm qemu-system
+          sudo apt install -ybuild-essential python3 python-is-python3 \
+            uuid-dev nasm openssl gcc-multilib git m4 bison flex 
       - run: |
-          git config user.name "Name" &&
-          git config user.email "name@yourname.com"
+          git config --global user.name "Name" &&
+          git config --global user.email "name@yourname.com"
       - run: | 
           python3 BuildLoader.py clean &&
           mkdir sblkeys && 
