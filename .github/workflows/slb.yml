@@ -3,7 +3,7 @@ name: Coreboot build and release.
 on:
   push:
     paths:
-      - 'slb/**'
+      - 'sbl/**'
     tags:
       - 'rev*'
   workflow_dispatch:
@@ -26,6 +26,9 @@ jobs:
       - run: |
           sudo apt update -y && 
           sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib iasl nasm qemu-system
+      - run: |
+          git config user.name "Name" &&
+          git config user.email "name@yourname.com"
       - run: | 
           python3 BuildLoader.py clean &&
           mkdir sblkeys && 
